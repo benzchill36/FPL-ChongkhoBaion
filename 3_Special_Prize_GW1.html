@@ -58,7 +58,7 @@
     box-shadow: 0 0 30px rgba(0, 255, 135, 0.7);
 }
 
-        .container { max-width: 1000px; width: 100%; background: rgba(30, 2, 34, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 28px; padding: 35px 25px; box-shadow: 0 30px 70px rgba(0,0,0,0.7), 0 0 35px rgba(233, 0, 82, 0.2); }
+        .container { max-width: 1050px; width: 100%; background: rgba(30, 2, 34, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 28px; padding: 35px 25px; box-shadow: 0 30px 70px rgba(0,0,0,0.7), 0 0 35px rgba(233, 0, 82, 0.2); }
         .header { text-align: center; margin-bottom: 20px; }
         .badge-rule { display: inline-block; background: linear-gradient(90deg, #e90052, #ff5e00); color: white; padding: 6px 20px; border-radius: 30px; font-size: 12.5px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
         .main-title { font-size: 32px; font-weight: 900; background: linear-gradient(90deg, #ffffff, #ffd700, #00ff87); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
@@ -72,7 +72,7 @@
         .champ-team { font-size: 22px; font-weight: 800; color: #fff; margin: 4px 0; }
         .champ-mgr { font-size: 13.5px; color: #f0d5a3; margin-bottom: 10px; }
         .champ-pts { font-size: 28px; font-weight: 900; color: var(--pl-green); }
-        .champ-sub { font-size: 11.5px; color: #00ff87; }
+        .champ-sub { font-size: 12px; color: #00ff87; }
         .var-summary-box { background: rgba(233, 0, 82, 0.08); border: 2px dashed rgba(233, 0, 82, 0.4); border-radius: 20px; padding: 18px; }
         .var-box-title { font-size: 15px; font-weight: 800; color: var(--pl-pink); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
         .var-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -112,7 +112,6 @@
         .cap-name { color: #ffffff; font-weight: 600; display: block; }
         .cap-pts { color: var(--pl-cyan); font-weight: 700; }
         .bench-col { color: #ffd700; font-weight: 700; }
-        .tie-note { font-size: 10.5px; color: #ffd700; background: rgba(255, 215, 0, 0.1); padding: 2px 6px; border-radius: 6px; display: inline-block; margin-top: 3px; }
         .footer { text-align: center; margin-top: 20px; color: #7b628a; font-size: 11.5px; }
     </style>
 </head>
@@ -231,10 +230,11 @@ function downloadAsImage() {
                         <th class="col-center">อันดับเดิม</th>
                         <th class="col-center">ขยับ</th>
                         <th>ชื่อทีม & ผู้จัดการทีม</th>
+                        <th class="col-center">แต้มดิบ</th>
+                        <th class="col-center">สถานะชิป</th>
                         <th class="col-center">คะแนนสุทธิ</th>
                         <th class="col-center">กัปตัน (Captain)</th>
                         <th class="col-center">สำรอง (Bench)</th>
-                        <th class="col-center">สถานะชิป</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -245,15 +245,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">APHICHAI  FC</div>
                 <div class="mgr-name">Aphichai Chanasook</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">52</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">52</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Mbeumo</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">10</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="silver-row">
@@ -263,15 +263,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Nuttawut's Team</div>
                 <div class="mgr-name">Nuttawut Chutipong</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">49</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">49</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Saka</span>
                 <span class="cap-pts">(18 pts)</span>
             </td>
             <td class="col-center bench-col">3</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="bronze-row">
@@ -281,15 +281,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Klong 5 Rovers</div>
                 <div class="mgr-name">Guy Klong5</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์กัปตัน (4 vs 18)</div>
             </td>
+            <td class="col-center text-muted font-bold">49</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">49</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Haaland</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">9</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -299,15 +299,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">sirxpxk_</div>
                 <div class="mgr-name">sirxpxk _</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์กัปตัน (0 vs 4)</div>
             </td>
+            <td class="col-center text-muted font-bold">49</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">49</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Rogers</span>
                 <span class="cap-pts">(0 pts)</span>
             </td>
             <td class="col-center bench-col">5</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -317,15 +317,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Dogor Dorgu</div>
                 <div class="mgr-name">Piyapong Hongsuwan</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">48</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">48</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© B.Fernandes</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">9</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -335,15 +335,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Untapan</div>
                 <div class="mgr-name">Pakpong L.</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">64</td>
+            <td class="col-center"><span class="chip-alert">⚠️ Bench Boost (BB) (-17)</span></td>
             <td class="col-center net-col font-bold">47</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© B.Fernandes</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">17</td>
-            <td class="col-center"><span class="chip-alert">⚠️ Bench Boost (BB) (-17)</span></td>
         </tr>
         
         <tr class="">
@@ -353,15 +353,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Al-Nuser</div>
                 <div class="mgr-name">Witsanu Munfak</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">46</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">46</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Haaland</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">5</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -371,15 +371,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Wat Nong+ Pla NiL FC</div>
                 <div class="mgr-name">Piyabut Promrungruang</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">45</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">45</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Haaland</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">12</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -389,15 +389,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Sittinon's Team</div>
                 <div class="mgr-name">Sittinon Temsongsai</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์สำรอง (7 vs 12)</div>
             </td>
+            <td class="col-center text-muted font-bold">45</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">45</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Haaland</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">7</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -407,15 +407,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">IS_AK 18</div>
                 <div class="mgr-name">อิทธิวัฒน์ คำภา</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์สำรอง (6 vs 7)</div>
             </td>
+            <td class="col-center text-muted font-bold">51</td>
+            <td class="col-center"><span class="chip-alert">⚠️ Bench Boost (BB) (-6)</span></td>
             <td class="col-center net-col font-bold">45</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Haaland</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">6</td>
-            <td class="col-center"><span class="chip-alert">⚠️ Bench Boost (BB) (-6)</span></td>
         </tr>
         
         <tr class="">
@@ -425,15 +425,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">RiceCooker</div>
                 <div class="mgr-name">Chaiwat Munkong</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">43</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">43</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Gabriel</span>
                 <span class="cap-pts">(10 pts)</span>
             </td>
             <td class="col-center bench-col">5</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -443,15 +443,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Lek C King</div>
                 <div class="mgr-name">Banyawake Tharnthong</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์กัปตัน (6 vs 10)</div>
             </td>
+            <td class="col-center text-muted font-bold">43</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">43</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Rice</span>
                 <span class="cap-pts">(6 pts)</span>
             </td>
             <td class="col-center bench-col">2</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -461,15 +461,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">DATE26th</div>
                 <div class="mgr-name">Prarunya Kamahayung</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">39</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">39</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Saka</span>
                 <span class="cap-pts">(18 pts)</span>
             </td>
             <td class="col-center bench-col">7</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -479,15 +479,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Aofmook Fc</div>
                 <div class="mgr-name">Tuntawat Juntun</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์กัปตัน (12 vs 18)</div>
             </td>
+            <td class="col-center text-muted font-bold">39</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">39</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Raya</span>
                 <span class="cap-pts">(12 pts)</span>
             </td>
             <td class="col-center bench-col">5</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -497,15 +497,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">ทีมของ Kritsada</div>
                 <div class="mgr-name">Kritsada saejueng</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์กัปตัน (4 vs 12)</div>
             </td>
+            <td class="col-center text-muted font-bold">39</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">39</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© B.Fernandes</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">12</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -515,15 +515,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Yenzo</div>
                 <div class="mgr-name">Xabi Alonso</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์สำรอง (10 vs 12)</div>
             </td>
+            <td class="col-center text-muted font-bold">39</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">39</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Haaland</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">10</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -533,15 +533,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Pending Moderation</div>
                 <div class="mgr-name">Piyanat Cherdchoo</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">54</td>
+            <td class="col-center"><span class="chip-alert">⚠️ Bench Boost (BB) (-17)</span></td>
             <td class="col-center net-col font-bold">37</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Haaland</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">17</td>
-            <td class="col-center"><span class="chip-alert">⚠️ Bench Boost (BB) (-17)</span></td>
         </tr>
         
         <tr class="">
@@ -551,15 +551,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">JK Blookner Olivera</div>
                 <div class="mgr-name">Tanawut Polchamni</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์สำรอง (5 vs 17)</div>
             </td>
+            <td class="col-center text-muted font-bold">37</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">37</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© O'Reilly</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">5</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -569,15 +569,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">ผู้บ่าวไทบ้าน</div>
                 <div class="mgr-name">Thanit Sophajit</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">36</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">36</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Haaland</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">29</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -587,15 +587,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Tengen El Paso</div>
                 <div class="mgr-name">EL Paso slow-bar Coffee</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์สำรอง (25 vs 29)</div>
             </td>
+            <td class="col-center text-muted font-bold">36</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">36</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Haaland</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">25</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -605,15 +605,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Pimson Team</div>
                 <div class="mgr-name">Chanwit Pimson</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์สำรอง (6 vs 25)</div>
             </td>
+            <td class="col-center text-muted font-bold">36</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">36</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Haaland</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">6</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -623,15 +623,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">7-a-side</div>
                 <div class="mgr-name">Punlert Ruttana</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">35</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">35</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Haaland</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">3</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -641,15 +641,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Raminthra Classic FC</div>
                 <div class="mgr-name">Chaichana Pathomekmongkhon</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">34</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">34</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Gyökeres</span>
                 <span class="cap-pts">(0 pts)</span>
             </td>
             <td class="col-center bench-col">5</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -659,15 +659,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">TanateR</div>
                 <div class="mgr-name">ธเนศ รุจิ</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">60</td>
+            <td class="col-center"><span class="chip-alert">⚠️ Bench Boost (BB) (-27)</span></td>
             <td class="col-center net-col font-bold">33</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© B.Fernandes</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">27</td>
-            <td class="col-center"><span class="chip-alert">⚠️ Bench Boost (BB) (-27)</span></td>
         </tr>
         
         <tr class="">
@@ -677,15 +677,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">onelove2499</div>
                 <div class="mgr-name">Mongkhol Namsang</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์สำรอง (18 vs 27)</div>
             </td>
+            <td class="col-center text-muted font-bold">33</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">33</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Haaland</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">18</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -695,15 +695,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">รถซื้อแกง จะแรงได้ไง</div>
                 <div class="mgr-name">Nuttapong Limadisai</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">32</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">32</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Haaland</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">15</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -713,15 +713,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Winning Standard FC</div>
                 <div class="mgr-name">Maytapat Yurawattarapon</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์สำรอง (6 vs 15)</div>
             </td>
+            <td class="col-center text-muted font-bold">32</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">32</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© B.Fernandes</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">6</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -731,15 +731,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">N. DE JOE</div>
                 <div class="mgr-name">Nawapon Dechabun</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์สำรอง (3 vs 6)</div>
             </td>
+            <td class="col-center text-muted font-bold">32</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">32</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Haaland</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">3</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -749,15 +749,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Aruch's Team</div>
                 <div class="mgr-name">Aruch Changthong</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">31</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">31</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Rice</span>
                 <span class="cap-pts">(6 pts)</span>
             </td>
             <td class="col-center bench-col">2</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -767,15 +767,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">PheT9</div>
                 <div class="mgr-name">Phachara Wannarat</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์กัปตัน (4 vs 6)</div>
             </td>
+            <td class="col-center text-muted font-bold">43</td>
+            <td class="col-center"><span class="chip-alert">⚠️ Bench Boost (BB) (-12)</span></td>
             <td class="col-center net-col font-bold">31</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© B.Fernandes</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">12</td>
-            <td class="col-center"><span class="chip-alert">⚠️ Bench Boost (BB) (-12)</span></td>
         </tr>
         
         <tr class="">
@@ -785,15 +785,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Pending Moderation</div>
                 <div class="mgr-name">Pongsit Srisorn</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์สำรอง (8 vs 12)</div>
             </td>
+            <td class="col-center text-muted font-bold">31</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">31</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Isak</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">8</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -803,15 +803,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">eakachai@romeO</div>
                 <div class="mgr-name">Eakachai Hamhomvong</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">30</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">30</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© B.Fernandes</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">3</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -821,15 +821,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">PS</div>
                 <div class="mgr-name">Pongnarin Savangvong</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์กัปตัน (0 vs 4)</div>
             </td>
+            <td class="col-center text-muted font-bold">30</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">30</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© João Pedro</span>
                 <span class="cap-pts">(0 pts)</span>
             </td>
             <td class="col-center bench-col">-1</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -839,15 +839,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">KingPro</div>
                 <div class="mgr-name">จิรวัฒน์ ขนอม</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">29</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">29</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Haaland</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">11</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -857,15 +857,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">อนุบาลห้วยทับทัน</div>
                 <div class="mgr-name">Chinnaarch Thanapongphasin</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์สำรอง (7 vs 11)</div>
             </td>
+            <td class="col-center text-muted font-bold">29</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">29</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© B.Fernandes</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">7</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -875,15 +875,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Marcomon FC</div>
                 <div class="mgr-name">Montri Chamchuklin</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">28</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">28</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Semenyo</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">14</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -893,15 +893,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Pending Moderation</div>
                 <div class="mgr-name">Sukit Mattanaweerapong</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์สำรอง (7 vs 14)</div>
             </td>
+            <td class="col-center text-muted font-bold">28</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">28</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Haaland</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">7</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -911,15 +911,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">US TM</div>
                 <div class="mgr-name">rawat rummamai</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์สำรอง (2 vs 7)</div>
             </td>
+            <td class="col-center text-muted font-bold">28</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">28</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Isak</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">2</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -929,15 +929,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Wayuchocolate</div>
                 <div class="mgr-name">Ponlakit Choeychang</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์สำรอง (1 vs 2)</div>
             </td>
+            <td class="col-center text-muted font-bold">28</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">28</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Anderson</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">1</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -947,15 +947,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Notta</div>
                 <div class="mgr-name">Jirawat Ritnamkham</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">26</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">26</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Haaland</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">10</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -965,15 +965,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Okaynaja</div>
                 <div class="mgr-name">Sir Okaynaja</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">25</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">25</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© B.Fernandes</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">11</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -983,15 +983,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">C-KING</div>
                 <div class="mgr-name">Theera Tiawilai</div>
-                <div class="tie-note">แพ้ไทเบรกเกอร์สำรอง (3 vs 11)</div>
             </td>
+            <td class="col-center text-muted font-bold">25</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">25</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© B.Fernandes</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">3</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -1001,15 +1001,15 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">KokGraTaeErd</div>
                 <div class="mgr-name">Poramet Phungkrathok</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">20</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">20</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© B.Fernandes</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">8</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         
         <tr class="">
@@ -1019,20 +1019,20 @@ function downloadAsImage() {
             <td>
                 <div class="team-name">Arms42</div>
                 <div class="mgr-name">Niti Amarittaros</div>
-                
             </td>
+            <td class="col-center text-muted font-bold">12</td>
+            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
             <td class="col-center net-col font-bold">12</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© Haaland</span>
                 <span class="cap-pts">(4 pts)</span>
             </td>
             <td class="col-center bench-col">9</td>
-            <td class="col-center"><span class="chip-none">ไม่ได้ใช้ชิป ✅</span></td>
         </tr>
         </tbody>
             </table>
         </div>
-        <div class="footer">Generated on 24/08/2026 05:07 | FPL Auto Exporter</div>
+        <div class="footer">Generated on 24/08/2026 05:34 | FPL Auto Exporter</div>
     </div>
 </body>
 </html>
