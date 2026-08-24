@@ -1,0 +1,42 @@
+name: Auto Update FPL League Dashboard
+
+on:
+  # 1. รันอัตโนมัติตามเวลา (ทุกวันอังคารเวลา 05:00 น. ตามเวลาไทย หลังจากจบแมตช์สัปดาห์)
+  schedule:
+    - cron: '0 22 * * 1'   # 22:00 UTC วันจันทร์ = 05:00 น. วันอังคารไทย
+    - cron: '0 22 * * 3'   # รองรับสัปดาห์ที่มีเตะกลางสัปดาห์
+
+  # 2. สามารถกดปุ่มสั่งรันด้วยตัวเองบนเว็บ GitHub ได้ทุกเมื่อ
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  update-dashboard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run FPL Exporter Script
+        run: |
+          python export_fpl_to_excel.py
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./FPL_Web
