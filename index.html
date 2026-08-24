@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ชงโคใบอ่อน - FPL Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --pl-purple: #37003c; --pl-green: #00ff87; --pl-pink: #e90052; --pl-cyan: #04f5ff; --pl-gold: #ffd700; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: linear-gradient(135deg, #18001c 0%, #08000a 100%); font-family: 'Kanit', sans-serif; color: #fff; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 25px 15px; }
+        .hub-container { max-width: 800px; width: 100%; background: rgba(30, 2, 34, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 28px; padding: 40px 30px; box-shadow: 0 30px 70px rgba(0,0,0,0.7), 0 0 35px rgba(0, 255, 135, 0.15); text-align: center; }
+        .badge-hub { display: inline-block; background: linear-gradient(90deg, #00ff87, #04f5ff); color: #120015; padding: 6px 20px; border-radius: 30px; font-size: 13px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 15px; }
+        .hub-title { font-size: 36px; font-weight: 900; background: linear-gradient(90deg, #ffffff, #00ff87, #04f5ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px; }
+        .hub-sub { color: #d1b4e3; font-size: 16px; margin-bottom: 35px; }
+        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 30px; }
+        .portal-card { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 25px 20px; text-decoration: none; color: #fff; display: flex; flex-direction: column; align-items: center; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .portal-card:hover { transform: translateY(-5px); border-color: var(--pl-green); box-shadow: 0 10px 30px rgba(0, 255, 135, 0.25); background: rgba(255, 255, 255, 0.07); }
+        .prize-card:hover { border-color: var(--pl-pink); box-shadow: 0 10px 30px rgba(233, 0, 82, 0.25); }
+        .card-icon { font-size: 42px; margin-bottom: 12px; }
+        .card-title { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+        .card-desc { font-size: 12.5px; color: #bba3cc; }
+        .btn-excel { display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; padding: 12px 24px; border-radius: 30px; font-size: 14px; font-weight: 700; text-decoration: none; transition: 0.2s; }
+        .btn-excel:hover { background: #1f4e79; border-color: #2a6db0; }
+        .footer { margin-top: 30px; color: #7b628a; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="hub-container">
+        <div class="badge-hub">LEAGUE ID: 506845</div>
+        <h1 class="hub-title">ชงโคใบอ่อน</h1>
+        <p class="hub-sub">ศูนย์รวมตารางคะแนนและสรุปผลรางวัลประจำฤดูกาล (อัปเดตล่าสุด: GW 1)</p>
+
+        <div class="grid-cards">
+            <a href="1_Weekly_Standings_GW1.html" class="portal-card">
+                <div class="card-icon">📊</div>
+                <div class="card-title">ตารางคะแนนสัปดาห์นี้</div>
+                <div class="card-desc">ดูอันดับล่าสุด, แต้มรวม, และการขยับอันดับ</div>
+            </a>
+            <a href="2_Monthly_Awards_GW1.html" class="portal-card">
+                <div class="card-icon">📅</div>
+                <div class="card-title">สรุปผลงานประจำเดือน</div>
+                <div class="card-desc">ดูแชมป์ประจำเดือน (Manager of the Month)</div>
+            </a>
+            
+        <a href="3_Special_Prize_GW1.html" class="portal-card prize-card">
+            <div class="card-icon">🎁</div>
+            <div class="card-title">รางวัลพิเศษ GW1</div>
+            <div class="card-desc">ดูผลการแจกรางวัล & ดราม่าห้อง VAR</div>
+        </a>
+        
+        </div>
+
+        <div>
+            <a href="FPL_League_506845_GW1_Full_Season.xlsx" download class="btn-excel">
+                <span>📥 ดาวน์โหลดไฟล์ Excel รวมทั้งฤดูกาล (.xlsx)</span>
+            </a>
+        </div>
+
+        <div class="footer">Fantasy Premier League Automated Dashboard | Updated on 24/08/2026 04:57</div>
+    </div>
+</body>
+</html>
