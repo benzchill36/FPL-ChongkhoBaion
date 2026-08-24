@@ -28,7 +28,6 @@ MONTH_THAI = {
     10: "ตุลาคม (Oct)", 11: "พฤศจิกายน (Nov)", 12: "ธันวาคม (Dec)"
 }
 
-# แถบเมนูด้านบนพร้อมปุ่มย้อนกลับไปหน้าหลัก (index.html) + ปุ่มเซฟภาพ
 NAV_ACTION_BAR_HTML = """
 <div class="action-bar">
     <a href="index.html" class="btn-back">⬅ กลับหน้าหลัก (Home)</a>
@@ -244,23 +243,13 @@ def generate_weekly_standings_html(league_name, league_id, current_gw, display_r
         chip_badge = f'<span class="chip-tag">{r["chip"]}</span>' if r.get("chip") and r.get("chip") != "-" else ""
         gw_high_class = "gw-high" if r.get("gw_pts") == highest_gw_pts and highest_gw_pts > 0 else ""
 
-        # แท็กข้อมูลกัปตันและสำรอง
-        cap_badge = f'<span class="cap-pill">© {r["captain_name"]} ({r["captain_pts"]} pts)</span>' if r.get("captain_name") and r.get("captain_name") != "-" else ""
-        bench_badge = f'<span class="bench-pill">🪑 สำรอง: {r["bench_pts"]} pts</span>' if "bench_pts" in r else ""
-
         table_rows_html += f"""
         <tr class="{rank_class}">
             <td class="col-rank">{rank_icon}</td>
             <td class="col-change">{change_badge}</td>
             <td class="col-team">
                 <div class="team-title">{r['team_name']}</div>
-                <div class="manager-title">
-                    {r['player_name']} {chip_badge}
-                </div>
-                <div class="meta-row">
-                    {cap_badge}
-                    {bench_badge}
-                </div>
+                <div class="manager-title">{r['player_name']} {chip_badge}</div>
             </td>
             <td class="col-gw {gw_high_class}">+{r['gw_pts']}</td>
             <td class="col-total">{r['total_pts']}</td>
@@ -279,7 +268,7 @@ def generate_weekly_standings_html(league_name, league_id, current_gw, display_r
         * {{ box-sizing: border-box; margin: 0; padding: 0; }}
         body {{ background: linear-gradient(135deg, #1b001e 0%, #0d000f 100%); font-family: 'Kanit', sans-serif; color: #fff; padding: 25px 15px; display: flex; flex-direction: column; align-items: center; }}
         {ACTION_BAR_CSS}
-        .container {{ max-width: 920px; width: 100%; background: rgba(36, 4, 40, 0.95); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 35px 25px; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 255, 135, 0.15); }}
+        .container {{ max-width: 900px; width: 100%; background: rgba(36, 4, 40, 0.95); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 35px 25px; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 255, 135, 0.15); }}
         .header {{ text-align: center; margin-bottom: 25px; }}
         .badge-type {{ display: inline-block; background: linear-gradient(90deg, var(--pl-pink), #963cff); color: white; padding: 5px 16px; border-radius: 30px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }}
         .title {{ font-size: 30px; font-weight: 800; background: linear-gradient(90deg, #ffffff, #00ff87); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px; }}
@@ -310,9 +299,6 @@ def generate_weekly_standings_html(league_name, league_id, current_gw, display_r
         .team-title {{ font-weight: 700; font-size: 14.5px; color: #ffffff; }}
         .manager-title {{ font-size: 11.5px; color: #ad94be; margin-top: 2px; }}
         .chip-tag {{ background: #963cff; color: #fff; padding: 1px 7px; border-radius: 8px; font-size: 10px; font-weight: 700; margin-left: 6px; }}
-        .meta-row {{ margin-top: 5px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }}
-        .cap-pill {{ background: rgba(4, 245, 255, 0.12); border: 1px solid rgba(4, 245, 255, 0.3); color: #04f5ff; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px; }}
-        .bench-pill {{ background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.25); color: #ffd700; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }}
         .col-gw {{ font-weight: 700; text-align: center; width: 85px; color: #e0d0eb; }}
         .col-gw.gw-high {{ color: var(--pl-green); font-weight: 800; text-shadow: 0 0 10px rgba(0, 255, 135, 0.4); }}
         .col-total {{ font-weight: 800; font-size: 15.5px; text-align: center; width: 85px; color: var(--pl-cyan); }}
@@ -351,7 +337,7 @@ def generate_weekly_standings_html(league_name, league_id, current_gw, display_r
                     <tr>
                         <th class="col-rank">อันดับ</th>
                         <th class="col-change">ขยับ</th>
-                        <th class="col-team">ชื่อทีม, ผู้จัดการทีม & กัปตัน</th>
+                        <th class="col-team">ชื่อทีม & ผู้จัดการทีม</th>
                         <th class="col-gw">แต้ม GW{current_gw}</th>
                         <th class="col-total">คะแนนรวม</th>
                     </tr>
@@ -555,6 +541,7 @@ def generate_gw_special_html(league_name, league_id, gw_number, prize_title, is_
         </div>
         """
 
+    # ตารางรูปแบบเดิมที่มีครบทุกคอลัมน์: แต้มดิบ, สถานะชิป, คะแนนสุทธิ + เพิ่มคอลัมน์กัปตันและสำรอง
     table_rows = ""
     for r in gw_prize_rows:
         p_rank = r["prize_rank"]
@@ -571,10 +558,6 @@ def generate_gw_special_html(league_name, league_id, gw_number, prize_title, is_
         elif r["chip"] != "-":
             chip_col = f'<span style="color:#c490ff; font-weight:700;">{r["chip"]}</span>'
 
-        tie_badge = ""
-        if r.get("tie_note"):
-            tie_badge = f'<div class="tie-note">{r["tie_note"]}</div>'
-
         table_rows += f"""
         <tr class="{rank_class}">
             <td class="col-center font-bold">{rank_display}</td>
@@ -583,15 +566,15 @@ def generate_gw_special_html(league_name, league_id, gw_number, prize_title, is_
             <td>
                 <div class="team-name">{r['team_name']}</div>
                 <div class="mgr-name">{r['player_name']}</div>
-                {tie_badge}
             </td>
+            <td class="col-center text-muted font-bold">{r['raw_points']}</td>
+            <td class="col-center">{chip_col}</td>
             <td class="col-center net-col font-bold">{r['net_points']}</td>
             <td class="col-center cap-col">
                 <span class="cap-name">© {r['captain_name']}</span>
                 <span class="cap-pts">({r['captain_pts']} pts)</span>
             </td>
             <td class="col-center bench-col">{r['bench_pts']}</td>
-            <td class="col-center">{chip_col}</td>
         </tr>
         """
 
@@ -609,7 +592,7 @@ def generate_gw_special_html(league_name, league_id, gw_number, prize_title, is_
         * {{ box-sizing: border-box; margin: 0; padding: 0; }}
         body {{ background: linear-gradient(135deg, #18001c 0%, #08000a 100%); font-family: 'Kanit', sans-serif; color: #fff; padding: 25px 15px; display: flex; flex-direction: column; align-items: center; }}
         {ACTION_BAR_CSS}
-        .container {{ max-width: 1000px; width: 100%; background: rgba(30, 2, 34, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 28px; padding: 35px 25px; box-shadow: 0 30px 70px rgba(0,0,0,0.7), 0 0 35px rgba(233, 0, 82, 0.2); }}
+        .container {{ max-width: 1050px; width: 100%; background: rgba(30, 2, 34, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 28px; padding: 35px 25px; box-shadow: 0 30px 70px rgba(0,0,0,0.7), 0 0 35px rgba(233, 0, 82, 0.2); }}
         .header {{ text-align: center; margin-bottom: 20px; }}
         .badge-rule {{ display: inline-block; background: linear-gradient(90deg, #e90052, #ff5e00); color: white; padding: 6px 20px; border-radius: 30px; font-size: 12.5px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }}
         .main-title {{ font-size: 32px; font-weight: 900; background: linear-gradient(90deg, #ffffff, #ffd700, #00ff87); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }}
@@ -623,7 +606,7 @@ def generate_gw_special_html(league_name, league_id, gw_number, prize_title, is_
         .champ-team {{ font-size: 22px; font-weight: 800; color: #fff; margin: 4px 0; }}
         .champ-mgr {{ font-size: 13.5px; color: #f0d5a3; margin-bottom: 10px; }}
         .champ-pts {{ font-size: 28px; font-weight: 900; color: var(--pl-green); }}
-        .champ-sub {{ font-size: 11.5px; color: #00ff87; }}
+        .champ-sub {{ font-size: 12px; color: #00ff87; }}
         .var-summary-box {{ background: rgba(233, 0, 82, 0.08); border: 2px dashed rgba(233, 0, 82, 0.4); border-radius: 20px; padding: 18px; }}
         .var-box-title {{ font-size: 15px; font-weight: 800; color: var(--pl-pink); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }}
         .var-grid {{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }}
@@ -663,7 +646,6 @@ def generate_gw_special_html(league_name, league_id, gw_number, prize_title, is_
         .cap-name {{ color: #ffffff; font-weight: 600; display: block; }}
         .cap-pts {{ color: var(--pl-cyan); font-weight: 700; }}
         .bench-col {{ color: #ffd700; font-weight: 700; }}
-        .tie-note {{ font-size: 10.5px; color: #ffd700; background: rgba(255, 215, 0, 0.1); padding: 2px 6px; border-radius: 6px; display: inline-block; margin-top: 3px; }}
         .footer {{ text-align: center; margin-top: 20px; color: #7b628a; font-size: 11.5px; }}
     </style>
 </head>
@@ -699,10 +681,11 @@ def generate_gw_special_html(league_name, league_id, gw_number, prize_title, is_
                         <th class="col-center">อันดับเดิม</th>
                         <th class="col-center">ขยับ</th>
                         <th>ชื่อทีม & ผู้จัดการทีม</th>
+                        <th class="col-center">แต้มดิบ</th>
+                        <th class="col-center">สถานะชิป</th>
                         <th class="col-center">คะแนนสุทธิ</th>
                         <th class="col-center">กัปตัน (Captain)</th>
                         <th class="col-center">สำรอง (Bench)</th>
-                        <th class="col-center">สถานะชิป</th>
                     </tr>
                 </thead>
                 <tbody>{table_rows}</tbody>
@@ -765,7 +748,7 @@ def generate_index_portal_html(league_name, league_id, current_gw, excel_filenam
             <a href="1_Weekly_Standings_GW{current_gw}.html" class="portal-card">
                 <div class="card-icon">📊</div>
                 <div class="card-title">ตารางคะแนนสัปดาห์นี้</div>
-                <div class="card-desc">ดูอันดับล่าสุด, แต้มรวม, กัปตัน และการขยับอันดับ</div>
+                <div class="card-desc">ดูอันดับล่าสุด, แต้มรวม, และการขยับอันดับ</div>
             </a>
             <a href="2_Monthly_Awards_GW{current_gw}.html" class="portal-card">
                 <div class="card-icon">📅</div>
@@ -804,7 +787,6 @@ def fetch_and_export_full_season():
     
     events, current_gw, player_map, months_gw_map, gw_to_month = get_bootstrap_data()
     
-    # โหลด live points สำหรับทุกสัปดาห์ที่ต้องคำนวณไทเบรกเกอร์/รางวัลพิเศษ + สัปดาห์ปัจจุบัน
     target_fetch_gws = set(no_chip_gws)
     for g_str in special_prizes.keys():
         if int(g_str) <= current_gw:
@@ -880,38 +862,15 @@ def fetch_and_export_full_season():
 
         official_total_pts = sum(gw_official_points.get(g, 0) for g in range(1, current_gw + 1))
         
-        # ดึงข้อมูล Picks ของสัปดาห์ปัจจุบัน เพื่อหากัปตัน และตัวสำรอง
-        cur_captain_name = "-"
-        cur_captain_pts = 0
-        cur_bench_pts = 0
-        
-        cur_pick_url = f"https://fantasy.premierleague.com/api/entry/{entry_id}/event/{current_gw}/picks/"
-        cur_pick_res = requests.get(cur_pick_url, headers=HEADERS, verify=False)
-        if cur_pick_res.status_code == 200:
-            p_data_cur = cur_pick_res.json()
-            gw_live_cur = live_points_cache.get(current_gw, {})
-            for pick in p_data_cur.get("picks", []):
-                p_id = pick.get("element")
-                p_pts = gw_live_cur.get(p_id, 0)
-                mult = pick.get("multiplier", 1)
-                if pick.get("is_captain"):
-                    cur_captain_name = player_map.get(p_id, "Captain")
-                    cur_captain_pts = p_pts * (mult if mult > 0 else 1)
-                if pick.get("position", 1) >= 12:
-                    cur_bench_pts += p_pts
-
         season_row = {
             "ชื่อทีม (Team Name)": team_name,
             "ผู้จัดการทีม (Manager)": player_name,
             "คะแนนรวม (Total Points)": official_total_pts,
-            f"กัปตัน GW{current_gw} (Captain)": f"{cur_captain_name} ({cur_captain_pts} pts)",
-            f"สำรอง GW{current_gw} (Bench)": cur_bench_pts,
         }
         for g in range(1, 39):
             season_row[f"GW{g}"] = gw_official_points.get(g, "") if g <= current_gw else ""
         season_rows.append(season_row)
 
-        # คำนวณรางวัลพิเศษ & Tie-breaker สำหรับสัปดาห์รางวัล
         for target_gw in special_gws_data.keys():
             raw_pts = gw_official_points.get(target_gw, 0)
             chip_used = used_chips_dict.get(target_gw)
@@ -923,7 +882,6 @@ def fetch_and_export_full_season():
             captain_pts = 0
             bench_pts = 0
 
-            # ดึง picks เพื่อหาแต้มกัปตัน และแต้มตัวสำรอง (Tie-breaker)
             p_url = f"https://fantasy.premierleague.com/api/entry/{entry_id}/event/{target_gw}/picks/"
             p_res = requests.get(p_url, headers=HEADERS, verify=False)
             if p_res.status_code == 200:
@@ -1006,13 +964,10 @@ def fetch_and_export_full_season():
             "player_name": player_name,
             "gw_pts": gw_official_points.get(current_gw, 0),
             "total_pts": official_total_pts,
-            "chip": CHIP_DISPLAY.get(current_gw_chip, "-") if current_gw_chip else "-",
-            "captain_name": cur_captain_name,
-            "captain_pts": cur_captain_pts,
-            "bench_pts": cur_bench_pts
+            "chip": CHIP_DISPLAY.get(current_gw_chip, "-") if current_gw_chip else "-"
         })
 
-        print(f"[{idx}/{len(members)}] {team_name} | แต้มรวม: {official_total_pts} | GW{current_gw}: {gw_official_points.get(current_gw, 0)} (© {cur_captain_name}: {cur_captain_pts} pts)")
+        print(f"[{idx}/{len(members)}] {team_name} | แต้มรวม: {official_total_pts} | GW{current_gw}: {gw_official_points.get(current_gw, 0)}")
         time.sleep(0.05)
 
     season_rows.sort(key=lambda x: x["คะแนนรวม (Total Points)"], reverse=True)
@@ -1030,7 +985,6 @@ def fetch_and_export_full_season():
         for rank, row in enumerate(rows, 1):
             row["prize_rank"] = rank
             
-            # ตรวจสอบการเสมอ (Tie-breaker check)
             tie_note = ""
             if rank > 1:
                 prev = rows[rank - 2]
@@ -1050,12 +1004,12 @@ def fetch_and_export_full_season():
                 "อันดับเดิม FPL": row["fpl_rank"],
                 "ชื่อทีม (Team Name)": row["team_name"],
                 "ผู้จัดการทีม (Manager)": row["player_name"],
-                f"คะแนนสุทธิ GW{target_gw}": row["net_points"],
-                "กัปตัน": f"© {row['captain_name']} ({row['captain_pts']} pts)",
-                "แต้มตัวสำรอง (Bench)": row["bench_pts"],
-                "คะแนน FPL ทางการ": row["raw_points"],
+                "แต้มดิบ (ก่อนตัดชิป)": row["raw_points"],
                 f"ชิปที่ใช้ใน GW{target_gw}": row["chip"],
                 "แต้มที่ถูกตัดออก": f"-{row['deduction']}" if row["deduction"] > 0 else "0",
+                f"คะแนนสุทธิ (แจกรางวัล)": row["net_points"],
+                "กัปตัน (Captain)": f"© {row['captain_name']} ({row['captain_pts']} pts)",
+                "แต้มตัวสำรอง (Bench)": row["bench_pts"],
                 "กฎตัดสิน / หมายเหตุ": tie_note if tie_note else row["reason"]
             })
         import pandas as pd
@@ -1113,7 +1067,7 @@ def fetch_and_export_full_season():
     excel_path = os.path.join(output_dir, f"{base_name}_Full_Season.xlsx")
     saved_excel = save_excel_safe(sheets, excel_path)
     
-    # กราฟฟิก 1: ตารางคะแนนสัปดาห์ (พร้อมกัปตัน & สำรอง)
+    # กราฟฟิก 1: ตารางคะแนนสัปดาห์ (รูปแบบเดิม คลีน สวยงาม)
     weekly_html_path = os.path.join(output_dir, f"1_Weekly_Standings_GW{current_gw}.html")
     generate_weekly_standings_html(league_name, league_id, current_gw, display_weekly_graphic_rows, weekly_html_path)
 
@@ -1121,7 +1075,7 @@ def fetch_and_export_full_season():
     monthly_html_path = os.path.join(output_dir, f"2_Monthly_Awards_GW{current_gw}.html")
     generate_monthly_awards_html(league_name, league_id, current_gw, monthly_data_map, monthly_places, monthly_html_path)
 
-    # กราฟฟิก 3: รางวัลพิเศษ (พร้อมกัปตัน & สำรอง)
+    # กราฟฟิก 3: รางวัลพิเศษ (รูปแบบเดิมที่โชว์แต้มดิบ + ตัดชิป + แต้มสุทธิ + เพิ่มกัปตันและสำรอง)
     prize_title_current = special_prizes.get(str(current_gw), f"🎁 รางวัลประจำสัปดาห์ GW{current_gw}")
     is_no_chip_current = current_gw in no_chip_gws
     special_prize_html_path = None
@@ -1142,7 +1096,7 @@ def fetch_and_export_full_season():
             shutil.copy2(s_file, d_file)
 
     print(f"\n==================================================")
-    print(f"🎉 นำข้อมูลกัปตัน & สำรองขึ้น Dashboard และ Excel ครบทุกจุดเรียบร้อย!")
+    print(f"🎉 คืนค่ารูปแบบเดิม + ใส่ช่องกัปตันและสำรองครบถ้วนแล้ว!")
     print(f"==================================================")
 
 if __name__ == "__main__":
