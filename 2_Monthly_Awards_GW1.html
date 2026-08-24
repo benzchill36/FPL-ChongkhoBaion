@@ -10,21 +10,53 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: linear-gradient(135deg, #14001a 0%, #08000c 100%); font-family: 'Kanit', sans-serif; color: #fff; padding: 25px 15px; display: flex; flex-direction: column; align-items: center; }
         
-.action-bar { text-align: center; margin-bottom: 20px; }
+.action-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.btn-back {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    padding: 10px 22px;
+    border-radius: 30px;
+    font-size: 13.5px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+    font-family: 'Kanit', sans-serif;
+}
+.btn-back:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: #00ff87;
+    color: #00ff87;
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 255, 135, 0.3);
+}
 .btn-dl {
     background: linear-gradient(90deg, #00ff87, #04f5ff);
     color: #120015;
     border: none;
-    padding: 12px 24px;
+    padding: 11px 24px;
     border-radius: 30px;
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 800;
     cursor: pointer;
     font-family: 'Kanit', sans-serif;
     box-shadow: 0 0 20px rgba(0, 255, 135, 0.4);
     transition: transform 0.2s, box-shadow 0.2s;
 }
-.btn-dl:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(0, 255, 135, 0.7); }
+.btn-dl:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(0, 255, 135, 0.7);
+}
 
         .container { max-width: 950px; width: 100%; background: rgba(30, 3, 35, 0.95); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 26px; padding: 35px 25px; box-shadow: 0 30px 70px rgba(0,0,0,0.7), 0 0 30px rgba(0, 255, 135, 0.15); }
         .header { text-align: center; margin-bottom: 30px; }
@@ -71,7 +103,8 @@
 <body>
     
 <div class="action-bar">
-    <button onclick="downloadAsImage()" class="btn-dl">📸 บันทึกเป็นรูปภาพ (PNG) เพื่อแชร์ลง LINE / Facebook</button>
+    <a href="index.html" class="btn-back">⬅ กลับหน้าหลัก (Home)</a>
+    <button onclick="downloadAsImage()" class="btn-dl">📸 บันทึกเป็นรูปภาพ (PNG)</button>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
@@ -88,9 +121,9 @@ function downloadAsImage() {
         link.download = document.title.replace(/[^a-zA-Z0-9ก-๙_-]/g, '_') + '.png';
         link.href = canvas.toDataURL('image/png');
         link.click();
-        btn.style.display = 'block';
+        btn.style.display = 'flex';
     }).catch(err => {
-        btn.style.display = 'block';
+        btn.style.display = 'flex';
         alert('เกิดข้อผิดพลาดในการสร้างรูปภาพ กรุณาใช้ปุ่ม Print Screen หรือแคปหน้าจอแทนครับ');
     });
 }
@@ -204,8 +237,8 @@ function downloadAsImage() {
             <tr class="">
                 <td class="col-center font-bold">#7</td>
                 <td>
-                    <div class="t-name">Klong 5 Rovers</div>
-                    <div class="m-name">Guy Klong5</div>
+                    <div class="t-name">Nuttawut's Team</div>
+                    <div class="m-name">Nuttawut Chutipong</div>
                 </td>
                 <td class="col-center font-bold m-pts">+49</td>
                 <td class="col-center text-muted">49</td>
@@ -214,8 +247,8 @@ function downloadAsImage() {
             <tr class="">
                 <td class="col-center font-bold">#8</td>
                 <td>
-                    <div class="t-name">Nuttawut's Team</div>
-                    <div class="m-name">Nuttawut Chutipong</div>
+                    <div class="t-name">Klong 5 Rovers</div>
+                    <div class="m-name">Guy Klong5</div>
                 </td>
                 <td class="col-center font-bold m-pts">+49</td>
                 <td class="col-center text-muted">49</td>
@@ -264,8 +297,8 @@ function downloadAsImage() {
             <tr class="">
                 <td class="col-center font-bold">#13</td>
                 <td>
-                    <div class="t-name">PheT9</div>
-                    <div class="m-name">Phachara Wannarat</div>
+                    <div class="t-name">Lek C King</div>
+                    <div class="m-name">Banyawake Tharnthong</div>
                 </td>
                 <td class="col-center font-bold m-pts">+43</td>
                 <td class="col-center text-muted">43</td>
@@ -284,8 +317,8 @@ function downloadAsImage() {
             <tr class="">
                 <td class="col-center font-bold">#15</td>
                 <td>
-                    <div class="t-name">Lek C King</div>
-                    <div class="m-name">Banyawake Tharnthong</div>
+                    <div class="t-name">PheT9</div>
+                    <div class="m-name">Phachara Wannarat</div>
                 </td>
                 <td class="col-center font-bold m-pts">+43</td>
                 <td class="col-center text-muted">43</td>
@@ -293,26 +326,6 @@ function downloadAsImage() {
             
             <tr class="">
                 <td class="col-center font-bold">#16</td>
-                <td>
-                    <div class="t-name">Aofmook Fc</div>
-                    <div class="m-name">Tuntawat Juntun</div>
-                </td>
-                <td class="col-center font-bold m-pts">+39</td>
-                <td class="col-center text-muted">39</td>
-            </tr>
-            
-            <tr class="">
-                <td class="col-center font-bold">#17</td>
-                <td>
-                    <div class="t-name">Yenzo</div>
-                    <div class="m-name">Xabi Alonso</div>
-                </td>
-                <td class="col-center font-bold m-pts">+39</td>
-                <td class="col-center text-muted">39</td>
-            </tr>
-            
-            <tr class="">
-                <td class="col-center font-bold">#18</td>
                 <td>
                     <div class="t-name">DATE26th</div>
                     <div class="m-name">Prarunya Kamahayung</div>
@@ -322,10 +335,30 @@ function downloadAsImage() {
             </tr>
             
             <tr class="">
-                <td class="col-center font-bold">#19</td>
+                <td class="col-center font-bold">#17</td>
                 <td>
                     <div class="t-name">ทีมของ Kritsada</div>
                     <div class="m-name">Kritsada saejueng</div>
+                </td>
+                <td class="col-center font-bold m-pts">+39</td>
+                <td class="col-center text-muted">39</td>
+            </tr>
+            
+            <tr class="">
+                <td class="col-center font-bold">#18</td>
+                <td>
+                    <div class="t-name">Yenzo</div>
+                    <div class="m-name">Xabi Alonso</div>
+                </td>
+                <td class="col-center font-bold m-pts">+39</td>
+                <td class="col-center text-muted">39</td>
+            </tr>
+            
+            <tr class="">
+                <td class="col-center font-bold">#19</td>
+                <td>
+                    <div class="t-name">Aofmook Fc</div>
+                    <div class="m-name">Tuntawat Juntun</div>
                 </td>
                 <td class="col-center font-bold m-pts">+39</td>
                 <td class="col-center text-muted">39</td>
@@ -404,8 +437,8 @@ function downloadAsImage() {
             <tr class="">
                 <td class="col-center font-bold">#27</td>
                 <td>
-                    <div class="t-name">Winning Standard FC</div>
-                    <div class="m-name">Maytapat Yurawattarapon</div>
+                    <div class="t-name">รถซื้อแกง จะแรงได้ไง</div>
+                    <div class="m-name">Nuttapong Limadisai</div>
                 </td>
                 <td class="col-center font-bold m-pts">+32</td>
                 <td class="col-center text-muted">32</td>
@@ -414,8 +447,8 @@ function downloadAsImage() {
             <tr class="">
                 <td class="col-center font-bold">#28</td>
                 <td>
-                    <div class="t-name">N. DE JOE</div>
-                    <div class="m-name">Nawapon Dechabun</div>
+                    <div class="t-name">Winning Standard FC</div>
+                    <div class="m-name">Maytapat Yurawattarapon</div>
                 </td>
                 <td class="col-center font-bold m-pts">+32</td>
                 <td class="col-center text-muted">32</td>
@@ -424,8 +457,8 @@ function downloadAsImage() {
             <tr class="">
                 <td class="col-center font-bold">#29</td>
                 <td>
-                    <div class="t-name">รถซื้อแกง จะแรงได้ไง</div>
-                    <div class="m-name">Nuttapong Limadisai</div>
+                    <div class="t-name">N. DE JOE</div>
+                    <div class="m-name">Nawapon Dechabun</div>
                 </td>
                 <td class="col-center font-bold m-pts">+32</td>
                 <td class="col-center text-muted">32</td>
@@ -494,8 +527,8 @@ function downloadAsImage() {
             <tr class="">
                 <td class="col-center font-bold">#36</td>
                 <td>
-                    <div class="t-name">Wayuchocolate</div>
-                    <div class="m-name">Ponlakit Choeychang</div>
+                    <div class="t-name">Marcomon FC</div>
+                    <div class="m-name">Montri Chamchuklin</div>
                 </td>
                 <td class="col-center font-bold m-pts">+28</td>
                 <td class="col-center text-muted">28</td>
@@ -503,16 +536,6 @@ function downloadAsImage() {
             
             <tr class="">
                 <td class="col-center font-bold">#37</td>
-                <td>
-                    <div class="t-name">Pending Moderation</div>
-                    <div class="m-name">Sukit Mattanaweerapong</div>
-                </td>
-                <td class="col-center font-bold m-pts">+28</td>
-                <td class="col-center text-muted">28</td>
-            </tr>
-            
-            <tr class="">
-                <td class="col-center font-bold">#38</td>
                 <td>
                     <div class="t-name">US TM</div>
                     <div class="m-name">rawat rummamai</div>
@@ -522,10 +545,20 @@ function downloadAsImage() {
             </tr>
             
             <tr class="">
+                <td class="col-center font-bold">#38</td>
+                <td>
+                    <div class="t-name">Pending Moderation</div>
+                    <div class="m-name">Sukit Mattanaweerapong</div>
+                </td>
+                <td class="col-center font-bold m-pts">+28</td>
+                <td class="col-center text-muted">28</td>
+            </tr>
+            
+            <tr class="">
                 <td class="col-center font-bold">#39</td>
                 <td>
-                    <div class="t-name">Marcomon FC</div>
-                    <div class="m-name">Montri Chamchuklin</div>
+                    <div class="t-name">Wayuchocolate</div>
+                    <div class="m-name">Ponlakit Choeychang</div>
                 </td>
                 <td class="col-center font-bold m-pts">+28</td>
                 <td class="col-center text-muted">28</td>
@@ -544,8 +577,8 @@ function downloadAsImage() {
             <tr class="">
                 <td class="col-center font-bold">#41</td>
                 <td>
-                    <div class="t-name">C-KING</div>
-                    <div class="m-name">Theera Tiawilai</div>
+                    <div class="t-name">Okaynaja</div>
+                    <div class="m-name">Sir Okaynaja</div>
                 </td>
                 <td class="col-center font-bold m-pts">+25</td>
                 <td class="col-center text-muted">25</td>
@@ -554,8 +587,8 @@ function downloadAsImage() {
             <tr class="">
                 <td class="col-center font-bold">#42</td>
                 <td>
-                    <div class="t-name">Okaynaja</div>
-                    <div class="m-name">Sir Okaynaja</div>
+                    <div class="t-name">C-KING</div>
+                    <div class="m-name">Theera Tiawilai</div>
                 </td>
                 <td class="col-center font-bold m-pts">+25</td>
                 <td class="col-center text-muted">25</td>
@@ -585,7 +618,7 @@ function downloadAsImage() {
             </div>
         </div>
         
-        <div class="footer">Generated on 24/08/2026 04:57 | FPL Auto Exporter</div>
+        <div class="footer">Generated on 24/08/2026 05:07 | FPL Auto Exporter</div>
     </div>
 </body>
 </html>
