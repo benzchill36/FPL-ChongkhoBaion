@@ -2,7 +2,16 @@
   "league_id": 506845,
   "rules": {
     "no_chip_gameweeks": [1],
-    "_comment_no_chips": "ระบุเลข Gameweek ที่ห้ามใช้ชิป (เช่น [1] หรือถ้ามีวีคอื่นอีกใส่เพิ่มเป็น [1, 19, 38])"
+    "_comment_no_chips": "ระบุเลข Gameweek ที่ห้ามใช้ชิป (เช่น [1] หรือ [1, 19, 38])"
+  },
+  "tie_breaker": {
+    "enabled": true,
+    "order": [
+      "1) คะแนนกัปตันสูงกว่า",
+      "2) Bench รวมสูงกว่า",
+      "3) จับฉลาก"
+    ],
+    "description": "กรณีแต้ม GW เท่ากัน: 1) คะแนนกัปตันสูงกว่า 2) Bench รวมสูงกว่า 3) จับฉลาก"
   },
   "prizes": {
     "special_weekly_prizes": {
