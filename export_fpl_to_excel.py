@@ -28,9 +28,21 @@ MONTH_THAI = {
     10: "ตุลาคม (Oct)", 11: "พฤศจิกายน (Nov)", 12: "ธันวาคม (Dec)"
 }
 
-NAV_ACTION_BAR_HTML = """
+def get_nav_action_bar_html(all_gws_list, current_view_gw):
+    options_html = ""
+    for g in sorted(all_gws_list, reverse=True):
+        selected = "selected" if g == current_view_gw else ""
+        options_html += f'<option value="1_Weekly_Standings_GW{g}.html" {selected}>Gameweek {g}</option>'
+
+    return f"""
 <div class="action-bar">
-    <a href="index.html" class="btn-back">⬅ กลับหน้าหลัก (Home)</a>
+    <a href="index.html" class="btn-back">⬅ หน้าหลัก (Home)</a>
+    <div class="gw-picker">
+        <span class="gw-picker-txt">📅 สัปดาห์:</span>
+        <select class="gw-select" onchange="window.location.href=this.value">
+            {options_html}
+        </select>
+    </div>
     <button onclick="downloadAsImage()" class="btn-dl">📸 บันทึกเป็นรูปภาพ (PNG)</button>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -63,14 +75,14 @@ ACTION_BAR_CSS = """
     justify-content: center;
     align-items: center;
     gap: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
     flex-wrap: wrap;
 }
 .btn-back {
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: #ffffff;
-    padding: 10px 22px;
+    padding: 9px 20px;
     border-radius: 30px;
     font-size: 13.5px;
     font-weight: 700;
@@ -88,11 +100,39 @@ ACTION_BAR_CSS = """
     transform: translateY(-2px);
     box-shadow: 0 0 15px rgba(0, 255, 135, 0.3);
 }
+.gw-picker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 4px 14px;
+    border-radius: 30px;
+}
+.gw-picker-txt {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #d1b4e3;
+}
+.gw-select {
+    background: transparent;
+    border: none;
+    color: #00ff87;
+    font-size: 13.5px;
+    font-weight: 800;
+    font-family: 'Kanit', sans-serif;
+    outline: none;
+    cursor: pointer;
+}
+.gw-select option {
+    background: #240428;
+    color: #fff;
+}
 .btn-dl {
     background: linear-gradient(90deg, #00ff87, #04f5ff);
     color: #120015;
     border: none;
-    padding: 11px 24px;
+    padding: 10px 22px;
     border-radius: 30px;
     font-size: 13.5px;
     font-weight: 800;
@@ -221,7 +261,7 @@ def save_excel_safe(sheets_dict, target_path):
         new_path = os.path.join(dir_name, f"{name}_{timestamp}{ext}")
         return write_workbook(new_path)
 
-def generate_weekly_standings_html(league_name, league_id, current_gw, display_rows, output_path):
+def generate_weekly_standings_html(league_name, league_id, target_gw, all_gws_list, display_rows, output_path):
     highest_gw_pts = max((r.get("gw_pts", 0) for r in display_rows), default=0)
     top_gw_scorers = [r for r in display_rows if r.get("gw_pts") == highest_gw_pts]
     top1 = display_rows[0] if len(display_rows) > 0 else None
@@ -256,12 +296,14 @@ def generate_weekly_standings_html(league_name, league_id, current_gw, display_r
         </tr>
         """
 
+    nav_bar = get_nav_action_bar_html(all_gws_list, target_gw)
+
     html = f"""<!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weekly Standings GW{current_gw} - {league_name}</title>
+    <title>Weekly Standings GW{target_gw} - {league_name}</title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {{ --pl-purple: #37003c; --pl-green: #00ff87; --pl-pink: #e90052; --pl-cyan: #04f5ff; --pl-gold: #ffd700; }}
@@ -306,12 +348,12 @@ def generate_weekly_standings_html(league_name, league_id, current_gw, display_r
     </style>
 </head>
 <body>
-    {NAV_ACTION_BAR_HTML}
+    {nav_bar}
     <div class="container">
         <div class="header">
             <div class="badge-type">📊 WEEKLY LEADERBOARD | LEAGUE {league_id}</div>
             <h1 class="title">{league_name}</h1>
-            <p class="subtitle">ตารางคะแนนรวมและอันดับล่าสุดประจำ <strong>GAMEWEEK {current_gw}</strong></p>
+            <p class="subtitle">ตารางคะแนนรวมและอันดับประจำ <strong>GAMEWEEK {target_gw}</strong></p>
         </div>
         <div class="highlights-grid">
             <div class="card-hl gold-hl">
@@ -325,7 +367,7 @@ def generate_weekly_standings_html(league_name, league_id, current_gw, display_r
             <div class="card-hl green-hl">
                 <div class="hl-icon">🔥</div>
                 <div>
-                    <div class="hl-label">แต้มสูงสุด GW{current_gw}</div>
+                    <div class="hl-label">แต้มสูงสุด GW{target_gw}</div>
                     <div class="hl-name">{top_gw_scorers[0]['team_name'] if top_gw_scorers else '-'}</div>
                     <div class="hl-pts">+{highest_gw_pts} แต้มสัปดาห์นี้</div>
                 </div>
@@ -338,7 +380,7 @@ def generate_weekly_standings_html(league_name, league_id, current_gw, display_r
                         <th class="col-rank">อันดับ</th>
                         <th class="col-change">ขยับ</th>
                         <th class="col-team">ชื่อทีม & ผู้จัดการทีม</th>
-                        <th class="col-gw">แต้ม GW{current_gw}</th>
+                        <th class="col-gw">แต้ม GW{target_gw}</th>
                         <th class="col-total">คะแนนรวม</th>
                     </tr>
                 </thead>
@@ -489,7 +531,32 @@ def generate_monthly_awards_html(league_name, league_id, current_gw, monthly_sum
     </style>
 </head>
 <body>
-    {NAV_ACTION_BAR_HTML}
+    <div class="action-bar">
+        <a href="index.html" class="btn-back">⬅ กลับหน้าหลัก (Home)</a>
+        <button onclick="downloadAsImage()" class="btn-dl">📸 บันทึกเป็นรูปภาพ (PNG)</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+    function downloadAsImage() {
+        const btn = document.querySelector('.action-bar');
+        btn.style.display = 'none';
+        const target = document.querySelector('.container');
+        html2canvas(target, {
+            scale: 2,
+            backgroundColor: '#14001a',
+            useCORS: true
+        }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = document.title.replace(/[^a-zA-Z0-9ก-๙_-]/g, '_') + '.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            btn.style.display = 'flex';
+        }).catch(err => {
+            btn.style.display = 'flex';
+            alert('เกิดข้อผิดพลาดในการสร้างรูปภาพ กรุณาใช้ปุ่ม Print Screen หรือแคปหน้าจอแทนครับ');
+        });
+    }
+    </script>
     <div class="container">
         <div class="header">
             <div class="badge-tag">📅 MONTHLY MANAGER OF THE MONTH | LEAGUE {league_id}</div>
@@ -541,7 +608,6 @@ def generate_gw_special_html(league_name, league_id, gw_number, prize_title, is_
         </div>
         """
 
-    # ตารางรูปแบบเดิมที่มีครบทุกคอลัมน์: แต้มดิบ, สถานะชิป, คะแนนสุทธิ + เพิ่มคอลัมน์กัปตันและสำรอง
     table_rows = ""
     for r in gw_prize_rows:
         p_rank = r["prize_rank"]
@@ -650,7 +716,32 @@ def generate_gw_special_html(league_name, league_id, gw_number, prize_title, is_
     </style>
 </head>
 <body>
-    {NAV_ACTION_BAR_HTML}
+    <div class="action-bar">
+        <a href="index.html" class="btn-back">⬅ กลับหน้าหลัก (Home)</a>
+        <button onclick="downloadAsImage()" class="btn-dl">📸 บันทึกเป็นรูปภาพ (PNG)</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+    function downloadAsImage() {
+        const btn = document.querySelector('.action-bar');
+        btn.style.display = 'none';
+        const target = document.querySelector('.container');
+        html2canvas(target, {
+            scale: 2,
+            backgroundColor: '#14001a',
+            useCORS: true
+        }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = document.title.replace(/[^a-zA-Z0-9ก-๙_-]/g, '_') + '.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            btn.style.display = 'flex';
+        }).catch(err => {
+            btn.style.display = 'flex';
+            alert('เกิดข้อผิดพลาดในการสร้างรูปภาพ กรุณาใช้ปุ่ม Print Screen หรือแคปหน้าจอแทนครับ');
+        });
+    }
+    </script>
     <div class="container">
         <div class="header">
             <div class="badge-rule">{rule_banner}</div>
@@ -700,7 +791,7 @@ def generate_gw_special_html(league_name, league_id, gw_number, prize_title, is_
         f.write(html)
     return output_path
 
-def generate_index_portal_html(league_name, league_id, current_gw, excel_filename, special_gws_list, output_path):
+def generate_index_portal_html(league_name, league_id, current_gw, excel_filename, all_played_gws, special_gws_list, output_path):
     special_links_html = ""
     for sgw in special_gws_list:
         special_links_html += f"""
@@ -709,6 +800,13 @@ def generate_index_portal_html(league_name, league_id, current_gw, excel_filenam
             <div class="card-title">รางวัลพิเศษ GW{sgw}</div>
             <div class="card-desc">ดูผลการแจกรางวัล & ดราม่าห้อง VAR</div>
         </a>
+        """
+
+    history_buttons_html = ""
+    for g in sorted(all_played_gws, reverse=True):
+        active_tag = " (ล่าสุด)" if g == current_gw else ""
+        history_buttons_html += f"""
+        <a href="1_Weekly_Standings_GW{g}.html" class="history-pill">GW{g}{active_tag}</a>
         """
 
     html = f"""<!DOCTYPE html>
@@ -722,20 +820,25 @@ def generate_index_portal_html(league_name, league_id, current_gw, excel_filenam
         :root {{ --pl-purple: #37003c; --pl-green: #00ff87; --pl-pink: #e90052; --pl-cyan: #04f5ff; --pl-gold: #ffd700; }}
         * {{ box-sizing: border-box; margin: 0; padding: 0; }}
         body {{ background: linear-gradient(135deg, #18001c 0%, #08000a 100%); font-family: 'Kanit', sans-serif; color: #fff; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 25px 15px; }}
-        .hub-container {{ max-width: 800px; width: 100%; background: rgba(30, 2, 34, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 28px; padding: 40px 30px; box-shadow: 0 30px 70px rgba(0,0,0,0.7), 0 0 35px rgba(0, 255, 135, 0.15); text-align: center; }}
+        .hub-container {{ max-width: 850px; width: 100%; background: rgba(30, 2, 34, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 28px; padding: 40px 30px; box-shadow: 0 30px 70px rgba(0,0,0,0.7), 0 0 35px rgba(0, 255, 135, 0.15); text-align: center; }}
         .badge-hub {{ display: inline-block; background: linear-gradient(90deg, #00ff87, #04f5ff); color: #120015; padding: 6px 20px; border-radius: 30px; font-size: 13px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 15px; }}
         .hub-title {{ font-size: 36px; font-weight: 900; background: linear-gradient(90deg, #ffffff, #00ff87, #04f5ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px; }}
-        .hub-sub {{ color: #d1b4e3; font-size: 16px; margin-bottom: 35px; }}
-        .grid-cards {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 30px; }}
+        .hub-sub {{ color: #d1b4e3; font-size: 16px; margin-bottom: 30px; }}
+        .grid-cards {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 25px; }}
         .portal-card {{ background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 25px 20px; text-decoration: none; color: #fff; display: flex; flex-direction: column; align-items: center; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }}
         .portal-card:hover {{ transform: translateY(-5px); border-color: var(--pl-green); box-shadow: 0 10px 30px rgba(0, 255, 135, 0.25); background: rgba(255, 255, 255, 0.07); }}
         .prize-card:hover {{ border-color: var(--pl-pink); box-shadow: 0 10px 30px rgba(233, 0, 82, 0.25); }}
         .card-icon {{ font-size: 42px; margin-bottom: 12px; }}
         .card-title {{ font-size: 18px; font-weight: 800; margin-bottom: 6px; }}
         .card-desc {{ font-size: 12.5px; color: #bba3cc; }}
+        .history-box {{ background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; padding: 18px; margin-bottom: 25px; }}
+        .history-title {{ font-size: 13px; font-weight: 700; color: #d1b4e3; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; }}
+        .history-grid {{ display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }}
+        .history-pill {{ background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; text-decoration: none; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 700; transition: all 0.2s; }}
+        .history-pill:hover {{ background: var(--pl-green); color: #120015; border-color: var(--pl-green); transform: translateY(-2px); }}
         .btn-excel {{ display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; padding: 12px 24px; border-radius: 30px; font-size: 14px; font-weight: 700; text-decoration: none; transition: 0.2s; }}
         .btn-excel:hover {{ background: #1f4e79; border-color: #2a6db0; }}
-        .footer {{ margin-top: 30px; color: #7b628a; font-size: 12px; }}
+        .footer {{ margin-top: 25px; color: #7b628a; font-size: 12px; }}
     </style>
 </head>
 <body>
@@ -748,7 +851,7 @@ def generate_index_portal_html(league_name, league_id, current_gw, excel_filenam
             <a href="1_Weekly_Standings_GW{current_gw}.html" class="portal-card">
                 <div class="card-icon">📊</div>
                 <div class="card-title">ตารางคะแนนสัปดาห์นี้</div>
-                <div class="card-desc">ดูอันดับล่าสุด, แต้มรวม, และการขยับอันดับ</div>
+                <div class="card-desc">ดูอันดับล่าสุด, แต้มรวม, และการขยับอันดับ (GW{current_gw})</div>
             </a>
             <a href="2_Monthly_Awards_GW{current_gw}.html" class="portal-card">
                 <div class="card-icon">📅</div>
@@ -758,9 +861,16 @@ def generate_index_portal_html(league_name, league_id, current_gw, excel_filenam
             {special_links_html}
         </div>
 
+        <div class="history-box">
+            <div class="history-title">📅 ดูตารางคะแนนย้อนหลังแต่ละสัปดาห์</div>
+            <div class="history-grid">
+                {history_buttons_html}
+            </div>
+        </div>
+
         <div>
             <a href="{excel_filename}" download class="btn-excel">
-                <span>📥 ดาวน์โหลดไฟล์ Excel รวมทั้งฤดูกาล (.xlsx)</span>
+                <span>📥 ดาวน์โหลดไฟล์ Excel: {excel_filename}</span>
             </a>
         </div>
 
@@ -786,7 +896,8 @@ def fetch_and_export_full_season():
     print(f"==================================================")
     
     events, current_gw, player_map, months_gw_map, gw_to_month = get_bootstrap_data()
-    
+    all_played_gws = list(range(1, current_gw + 1))
+
     target_fetch_gws = set(no_chip_gws)
     for g_str in special_prizes.keys():
         if int(g_str) <= current_gw:
@@ -825,7 +936,9 @@ def fetch_and_export_full_season():
 
     season_rows = []
     chips_tracker_rows = []
-    display_weekly_graphic_rows = []
+    
+    # โครงสร้างเก็บข้อมูลเพื่อสร้างกราฟฟิกย้อนหลังทุกสัปดาห์ (GW1 .. current_gw)
+    gw_graphics_map = {g: [] for g in all_played_gws}
     
     special_gws_data = {int(gw): [] for gw in special_prizes.keys() if int(gw) <= current_gw}
     for g in no_chip_gws:
@@ -842,7 +955,6 @@ def fetch_and_export_full_season():
         player_name = m.get("player_name")
         fpl_rank = m.get("rank")
         last_rank = m.get("last_rank")
-        rank_change = (last_rank - fpl_rank) if (last_rank and fpl_rank) else 0
 
         hist_url = f"https://fantasy.premierleague.com/api/entry/{entry_id}/history/"
         h_res = requests.get(hist_url, headers=HEADERS, verify=False)
@@ -956,16 +1068,19 @@ def fetch_and_export_full_season():
             "Free Hit": next((f"GW{ev}" for ev, name in used_chips_dict.items() if name == "freehit"), "-"),
         })
 
-        current_gw_chip = used_chips_dict.get(current_gw)
-        display_weekly_graphic_rows.append({
-            "rank": fpl_rank,
-            "rank_change": rank_change,
-            "team_name": team_name,
-            "player_name": player_name,
-            "gw_pts": gw_official_points.get(current_gw, 0),
-            "total_pts": official_total_pts,
-            "chip": CHIP_DISPLAY.get(current_gw_chip, "-") if current_gw_chip else "-"
-        })
+        # คำนวณคะแนนสะสมของแต่ละสัปดาห์ในอดีต (GW1 .. current_gw)
+        for g in all_played_gws:
+            cum_pts_up_to_g = sum(gw_official_points.get(k, 0) for k in range(1, g + 1))
+            cum_pts_up_to_prev = sum(gw_official_points.get(k, 0) for k in range(1, g)) if g > 1 else 0
+            g_chip = used_chips_dict.get(g)
+            gw_graphics_map[g].append({
+                "team_name": team_name,
+                "player_name": player_name,
+                "gw_pts": gw_official_points.get(g, 0),
+                "cum_pts": cum_pts_up_to_g,
+                "prev_cum_pts": cum_pts_up_to_prev,
+                "chip": CHIP_DISPLAY.get(g_chip, "-") if g_chip else "-"
+            })
 
         print(f"[{idx}/{len(members)}] {team_name} | แต้มรวม: {official_total_pts} | GW{current_gw}: {gw_official_points.get(current_gw, 0)}")
         time.sleep(0.05)
@@ -976,7 +1091,23 @@ def fetch_and_export_full_season():
         row_with_rank.update(row)
         season_rows[rank - 1] = row_with_rank
 
-    # การเรียงอันดับรางวัลพิเศษตามกฎ Tie-breaker: 1) แต้มสุทธิ 2) แต้มกัปตัน 3) แต้มสำรอง
+    # คำนวณอันดับย้อนหลังของแต่ละสัปดาห์
+    for g in all_played_gws:
+        g_rows = gw_graphics_map[g]
+        if g > 1:
+            g_rows.sort(key=lambda x: x["prev_cum_pts"], reverse=True)
+            for p_idx, r in enumerate(g_rows, 1):
+                r["prev_rank"] = p_idx
+        else:
+            for r in g_rows:
+                r["prev_rank"] = 0
+
+        g_rows.sort(key=lambda x: x["cum_pts"], reverse=True)
+        for c_idx, r in enumerate(g_rows, 1):
+            r["rank"] = c_idx
+            r["rank_change"] = (r["prev_rank"] - c_idx) if (r["prev_rank"] > 0) else 0
+            r["total_pts"] = r["cum_pts"]
+
     special_excel_dfs = {}
     for target_gw, rows in special_gws_data.items():
         rows.sort(key=lambda x: (x["net_points"], x["captain_pts"], x["bench_pts"]), reverse=True)
@@ -1021,8 +1152,6 @@ def fetch_and_export_full_season():
         for r_idx, r in enumerate(m_info["rows"], 1):
             r["rank"] = r_idx
 
-    display_weekly_graphic_rows.sort(key=lambda x: x["rank"])
-
     monthly_excel_rows = []
     for s_row in season_rows:
         t_name = s_row["ชื่อทีม (Team Name)"]
@@ -1053,29 +1182,30 @@ def fetch_and_export_full_season():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     today_str = datetime.now().strftime("%Y-%m-%d")
     
-    # 1. โฟลเดอร์ Archive
+    # 1. โฟลเดอร์ Archive แยกตามวันที่ (เหมือนเดิม)
     output_dir = os.path.join(script_dir, "FPL", today_str)
     os.makedirs(output_dir, exist_ok=True)
 
-    # 2. โฟลเดอร์ Web Root
+    # 2. โฟลเดอร์ Web Hosting
     web_dir = os.path.join(script_dir, "FPL_Web")
     os.makedirs(web_dir, exist_ok=True)
 
-    base_name = f"FPL_League_{league_id}_GW{current_gw}"
+    excel_filename = f"FPL_League_{league_id}_GW{current_gw}_{today_str}.xlsx"
     
-    # บันทึกไฟล์ Excel
-    excel_path = os.path.join(output_dir, f"{base_name}_Full_Season.xlsx")
+    # บันทึกไฟล์ Excel ลงทั้งโฟลเดอร์วันที่ และโฟลเดอร์ Web
+    excel_path = os.path.join(output_dir, excel_filename)
     saved_excel = save_excel_safe(sheets, excel_path)
     
-    # กราฟฟิก 1: ตารางคะแนนสัปดาห์ (รูปแบบเดิม คลีน สวยงาม)
-    weekly_html_path = os.path.join(output_dir, f"1_Weekly_Standings_GW{current_gw}.html")
-    generate_weekly_standings_html(league_name, league_id, current_gw, display_weekly_graphic_rows, weekly_html_path)
+    # กราฟฟิก: สร้างตารางคะแนนสำหรับทุกสัปดาห์ที่มีการแข่งขัน (GW1 .. current_gw)
+    for g in all_played_gws:
+        weekly_html_path = os.path.join(output_dir, f"1_Weekly_Standings_GW{g}.html")
+        generate_weekly_standings_html(league_name, league_id, g, all_played_gws, gw_graphics_map[g], weekly_html_path)
 
-    # กราฟฟิก 2: ประจำเดือน
+    # กราฟฟิกประจำเดือน
     monthly_html_path = os.path.join(output_dir, f"2_Monthly_Awards_GW{current_gw}.html")
     generate_monthly_awards_html(league_name, league_id, current_gw, monthly_data_map, monthly_places, monthly_html_path)
 
-    # กราฟฟิก 3: รางวัลพิเศษ (รูปแบบเดิมที่โชว์แต้มดิบ + ตัดชิป + แต้มสุทธิ + เพิ่มกัปตันและสำรอง)
+    # กราฟฟิกรางวัลพิเศษ
     prize_title_current = special_prizes.get(str(current_gw), f"🎁 รางวัลประจำสัปดาห์ GW{current_gw}")
     is_no_chip_current = current_gw in no_chip_gws
     special_prize_html_path = None
@@ -1086,7 +1216,7 @@ def fetch_and_export_full_season():
 
     # สร้างหน้า Portal Hub (index.html)
     index_html_path = os.path.join(output_dir, "index.html")
-    generate_index_portal_html(league_name, league_id, current_gw, os.path.basename(saved_excel), list(special_gws_data.keys()), index_html_path)
+    generate_index_portal_html(league_name, league_id, current_gw, excel_filename, all_played_gws, list(special_gws_data.keys()), index_html_path)
 
     # ซิงค์ไฟล์ทั้งหมดไปยัง FPL_Web
     for f_name in os.listdir(output_dir):
@@ -1096,7 +1226,10 @@ def fetch_and_export_full_season():
             shutil.copy2(s_file, d_file)
 
     print(f"\n==================================================")
-    print(f"🎉 คืนค่ารูปแบบเดิม + ใส่ช่องกัปตันและสำรองครบถ้วนแล้ว!")
+    print(f"🎉 สร้างเว็บ Portal และบันทึก Excel แยกตามวันที่เรียบร้อย!")
+    print(f"📁 1. โฟลเดอร์ Archive วันที่: FPL/{today_str}/")
+    print(f"📊 2. ไฟล์ Excel: {excel_filename}")
+    print(f"🌐 3. โฟลเดอร์ Web Hosting: FPL_Web/")
     print(f"==================================================")
 
 if __name__ == "__main__":
